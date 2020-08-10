@@ -1,23 +1,18 @@
 const express = require("express");
-const lists = require('./Routes/listing');
+const students = require('./Routes/student');
 const users = require('./Routes/users');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
-const logger = require('morgan');
 var jwt = require('jsonwebtoken');
-
-// jwt secret token
-app.set('secretKey', 'nodeRestApi');
 
 // DB connection
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Listing', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/Students', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     res.json({ "tutorial": "Build REST API with node.js" });
@@ -27,7 +22,7 @@ app.get('/', function (req, res) {
 app.use('/users', users);
 
 // private route
-app.use('/listings', validateUser, lists);
+app.use('/students', validateUser, students);
 
 app.get('/favicon.ico', function (req, res) {
     res.sendStatus(204);
@@ -35,15 +30,16 @@ app.get('/favicon.ico', function (req, res) {
 
 // user validation
 function validateUser(req, res, next) {
-    jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
-        if (err) {
-            res.json({ status: "error", message: err.message, data: null });
-        } else {
-            // add user id to request
-            req.body.id = decoded.id;
-            next();
+    try {
+        const token = req.header('Authorization').replace('Bearer ', '')
+        const data = jwt.verify(token, process.env.JWT_KEY)
+        if(!data) {
+            throw new Error()
         }
-    });
+        next()
+    } catch (error) {
+        res.status(401).send({ error: 'Not authorized to access this resource' })
+    }
 }
 
 // express doesn't consider not found 404 as an error so we need to handle 404 explicitly

@@ -4,7 +4,7 @@
   "description": "Lists Item details from MongoDb Database",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "env-cmd -f ./.env nodemon src/app.js"
   },
   "keywords": [
     "node",
@@ -21,5 +21,9 @@
     "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.17",
     "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^2.0.4"
   }
 }
