@@ -8,21 +8,29 @@ var jwt = require('jsonwebtoken');
 
 // DB connection
 const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/Students', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.use(bodyParser.json());
+app.set('view engine', 'ejs')
+
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.use(express.static(__dirname + '/public'));
+
+// app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.json({ "tutorial": "Build REST API with node.js" });
+    // res.json({ "tutorial": "Build REST API with node.js" });
+    res.render('index.ejs');
 });
 
 // public route
 app.use('/users', users);
 
 // private route
-app.use('/students', validateUser, students);
+// app.use('/students', validateUser, students);
+app.use('/students', students);
 
 app.get('/favicon.ico', function (req, res) {
     res.sendStatus(204);
