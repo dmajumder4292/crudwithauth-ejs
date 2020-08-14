@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Edit Student</h1>
+    <form action="/students/<%= student.id %>" method="POST" class="form">
+        <div class="form-group">
+          <label for="exampleInputEmail1">First Name:</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FirstName" value="<%= student.FirstName %>">
+          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Last Name:</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" name="LastName" value="<%= student.LastName %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Age:</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" name="Age" value="<%= student.Age %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">College:</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="College" value="<%= student.Collage %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Batch:</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="Batch" value="<%= student.Batch %>">
+        </div>
+        <!-- <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+    </form>
+</body>
+</html>

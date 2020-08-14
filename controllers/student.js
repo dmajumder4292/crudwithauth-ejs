@@ -2,12 +2,12 @@ const studentModel = require('../models/student');
 
 module.exports = {
     getById: function (req, res, next) {
-        console.log(req.body);
         studentModel.findById(req.params.id, function (err, studentInfo) {
             if (err) {
                 next(err);
             } else {
-                res.json({ status: "success", message: "Student found!!!", data: { students: studentInfo } });
+                // res.json({ status: "success", message: "Student found!!!", data: { students: studentInfo } });
+                res.render('student.ejs', {student: studentInfo})
             }
         });
     },
@@ -27,12 +27,24 @@ module.exports = {
         });
     },
 
+    editForm: function (req, res, next) {
+        studentModel.findById(req.params.id, function (err, studentInfo) {
+            if (err) {
+                next(err);
+            } else {
+                // res.json({ status: "success", message: "Student found!!!", data: { students: studentInfo } });
+                res.render('editform.ejs', {student: studentInfo})
+            }
+        });
+    },
+
     updateById: function (req, res, next) {
         studentModel.findByIdAndUpdate(req.params.id, { FirstName: req.body.FirstName, LastName: req.body.LastName, Age: req.body.Age, College: req.body.College, Batch: req.body.Batch }, function (err, studentInfo) {
             if (err)
                 next(err);
             else {
-                res.json({ status: "success", message: "Student updated successfully!!!", data: null });
+                // res.json({ status: "success", message: "Student updated successfully!!!", data: null });
+                res.redirect('/students/')
             }
         });
     },

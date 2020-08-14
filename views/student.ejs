@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/styles/student.css"/>
+</head>
+<body>
+    <h1>Student Info</h1>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Age</th>
+                <th>College</th>
+                <th>Batch</th>
+            </tr>
+            <tr>
+                <td><%= student.id %></td>
+                <td><%= student.FirstName %></td>
+                <td><%= student.LastName %></td>
+                <td><%= student.Age %></td>
+                <td><%= student.College %></td>
+                <td><%= student.Batch %></td>
+            </tr>
+        </table>
+        <div>
+            <img class="image" src="https://cdn2.vectorstock.com/i/1000x1000/52/51/male-student-graduation-avatar-profile-vector-12055251.jpg" alt="Avatar"/>
+        </div>
+    </div>
+    <a href="/students" class="btn btn-primary">See All Students</a>
+</body>
+</html>
